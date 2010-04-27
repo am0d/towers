@@ -16,6 +16,9 @@ class Grid:
         self.__init_map(self.__grid_background)
         screen.blit(self.__grid_background, (0, 0))
 
+        # the towers
+        self._towers = pygame.sprite.Group()
+
     def add_tower(self, x, y, tower):
         try:
             row = int(math.floor(y / self.res))
@@ -25,17 +28,14 @@ class Grid:
             pos_x = x - (x % self.res)
             pos_y = y - (y % self.res)
             tower.set_pos(pos_x, pos_y)
+
+            self._towers.add(tower)
         except IndexError:
             print row, col
 
     def draw(self, screen):
-        draw_list = []
-        for row in self._grid:
-            for object in row:
-                if hasattr(object, 'draw'):
-                    draw_list.append(object.draw(screen))
-
-        return draw_list
+        screen.blit(self.__grid_background, (0, 0))
+        self._towers.draw(screen)
 
     def draw_map(self, screen, pos):
         return screen.blit(self.__grid_background, pos.topleft, pos)

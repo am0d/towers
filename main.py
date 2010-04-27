@@ -37,7 +37,7 @@ while 1:
     # clear the screen
 
     # drawing code goes here
-    draw_list = []
-    draw_list += map.draw(screen)
+    map.draw(screen)
 
-    pygame.display.update(draw_list)
+    #pygame.display.update(draw_list)
+    pygame.display.flip()
