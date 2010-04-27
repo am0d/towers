@@ -5,6 +5,7 @@ from random import randint
 
 import util
 import tower
+import creep
 from world import World
 
 size = width, height = 640, 480
@@ -20,6 +21,8 @@ mouse_pos = pygame.mouse.get_pos()
 mouse_tower = tower_types[0](mouse_pos[0], mouse_pos[1])
 
 pygame.display.flip()
+
+creep = creep.Creep()
 
 while 1:
     for event in pygame.event.get():
@@ -37,6 +40,8 @@ while 1:
 
     # drawing code goes here
     world.draw(screen)
+
+    creep.draw(screen)
 
     mouse_pos = pygame.mouse.get_pos()
     mouse_tower.set_pos(math.floor(mouse_pos[0] / map_res) * map_res,
