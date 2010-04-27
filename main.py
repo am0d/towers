@@ -8,6 +8,8 @@ import tower
 import creep
 from world import World
 
+pygame.init()
+
 size = width, height = 640, 480
 screen = pygame.display.set_mode(size)
 
@@ -18,16 +20,19 @@ world = World(map_width, map_height, map_res, screen)
 tower_type = 0
 tower_types = [tower.WaterTower, tower.FireTower, tower.EarthTower]
 mouse_pos = pygame.mouse.get_pos()
-mouse_tower = tower_types[0](mouse_pos[0], mouse_pos[1])
+mouse_tower = tower.MouseTower(0, 0)
 
 pygame.display.flip()
 
-creep = creep.Creep()
+world.add_creep(5, 5, creep.Creep())
 
-while 1:
+last_time = pygame.time.get_ticks()
+finished = False
+
+while not finished:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            sys.exit()
+            finished = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x = event.pos[0]
             y = event.pos[1]
@@ -36,12 +41,15 @@ while 1:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_t:
                 tower_type = (tower_type + 1) % len(tower_types)
-                mouse_tower = tower_types[tower_type](0, 0)
+                mouse_tower.set_tower_type(tower_type)
+
+    # update everything
+    current_time = pygame.time.get_ticks()
+    world.update(current_time - last_time)
+    last_time = current_time
 
     # drawing code goes here
     world.draw(screen)
-
-    creep.draw(screen)
 
     mouse_pos = pygame.mouse.get_pos()
     mouse_tower.set_pos(math.floor(mouse_pos[0] / map_res) * map_res,
@@ -50,3 +58,7 @@ while 1:
 
     #pygame.display.update(draw_list)
     pygame.display.flip()
+
+print "Shutting down ..."
+pygame.quit()
+sys.exit(0)
