@@ -11,7 +11,7 @@ from world import World
 pygame.init()
 
 size = width, height = 640, 480
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 
 map_res = 40
 map_width, map_height = 500, 400
@@ -21,8 +21,6 @@ tower_type = 0
 tower_types = [tower.WaterTower, tower.FireTower, tower.EarthTower]
 mouse_pos = pygame.mouse.get_pos()
 mouse_tower = tower.MouseTower(0, 0)
-
-pygame.display.flip()
 
 world.add_creep(5, 5, creep.Creep())
 
@@ -39,7 +37,9 @@ while not finished:
             tower = tower_types[tower_type](x, y)
             world.add_tower(x, y, tower)
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_t:
+	    if event.key == pygame.K_ESCAPE:
+	       finished = True
+            elif event.key == pygame.K_t:
                 tower_type = (tower_type + 1) % len(tower_types)
                 mouse_tower.set_tower_type(tower_type)
 
