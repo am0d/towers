@@ -6,13 +6,13 @@ import util
 
 class Grid:
     def __init__(self, width, height, res, screen):
-        self.width = int(math.floor(width / res))
-        self.height = int(math.floor(height / res))
+        self.width = int(math.floor(width / res)*res)
+        self.height = int(math.floor(height / res)*res)
         self.res = res
         self._grid = [[None] * width for i in range(0, height)]
 
         # the visible map
-        self.__grid_background = pygame.Surface((width+1, height+1))
+        self.__grid_background = pygame.Surface((self.width+1, self.height+1))
         self.__init_map(self.__grid_background)
         screen.blit(self.__grid_background, (0, 0))
 
