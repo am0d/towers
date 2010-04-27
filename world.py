@@ -4,7 +4,7 @@ import pygame
 from tower import Tower
 import util
 
-class Grid:
+class World:
     def __init__(self, width, height, res, screen):
         self.width = int(math.floor(width / res)*res)
         self.height = int(math.floor(height / res)*res)
