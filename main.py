@@ -22,7 +22,8 @@ tower_types = [tower.WaterTower, tower.FireTower, tower.EarthTower]
 mouse_pos = pygame.mouse.get_pos()
 mouse_tower = tower.MouseTower(0, 0)
 
-world.add_creep(5, 5, creep.Creep())
+num_creeps = 0
+last_creep_added = 0
 
 last_time = pygame.time.get_ticks()
 finished = False
@@ -43,10 +44,16 @@ while not finished:
                 tower_type = (tower_type + 1) % len(tower_types)
                 mouse_tower.set_tower_type(tower_type)
 
+    
     # update everything
     current_time = pygame.time.get_ticks()
     world.update(current_time - last_time)
     last_time = current_time
+
+    if num_creeps < 5 and (current_time - last_creep_added) > 2000:
+    	world.add_creep(creep.Creep())
+	num_creeps += 1
+	last_creep_added = current_time
 
     # drawing code goes here
     world.draw(screen)

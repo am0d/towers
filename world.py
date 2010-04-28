@@ -44,12 +44,14 @@ class World:
 
             self._towers.add(tower)
 
-            self._creeps.update('path', (self))
+            self._creeps.update('path', 
+			    (self, (pos_x, pos_y)))
         except IndexError:
             print row, col
 
-    def add_creep(self, x, y, creep):
+    def add_creep(self, creep):
         self._creeps.add(creep)
+#creep.update('path', (self, (0, 0)))
 
     def draw(self, screen):
         screen.blit(self.__grid_background, (0, 0))
@@ -64,5 +66,8 @@ class World:
         self._towers.update(time)
         self._creeps.update('time', (time))
 
-    def get_new_path(self, src, dest):
+    def get_goal(self):
+	return (self.width, self.height)
+
+    def get_new_path(self, src):
         return []
