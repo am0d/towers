@@ -6,16 +6,16 @@ def square(size, color):
     surf.fill(color)
     return surf
 
-tower_sprites = [square([40, 40], util.blue),
-                 square([40, 40], util.red),
-                 square([40, 40], util.green)]
+tower_sprites = [square([39, 39], util.blue),
+                 square([39, 39], util.red),
+                 square([39, 39], util.green)]
 
 class Tower(pygame.sprite.Sprite):
     def __init__(self, x, y, image_number):
         pygame.sprite.Sprite.__init__(self)
-        self.rect = pygame.Rect(x, y, 40, 40)
         self.image = tower_sprites[image_number]
-        self.rect.size = self.image.get_rect().size
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
 
     def draw(self, screen):
         return screen.blit(self.image, self.rect)

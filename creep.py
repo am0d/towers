@@ -13,7 +13,7 @@ class Creep(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
 
         self.direction = math.radians(305.0)
-        self.speed = 5.0
+        self.speed = 8.0
         self.x = float(self.rect.left)
         self.y = float(self.rect.top)
 
@@ -22,7 +22,7 @@ class Creep(pygame.sprite.Sprite):
     def update(self, type, arguments):
         functions = {'time': self.time,
                      'path': self.path}
-        return functions[type](arguments)
+        return functions[type](*arguments)
 
     def time(self, timediff):
         delta = timediff / 1000.0
@@ -31,7 +31,7 @@ class Creep(pygame.sprite.Sprite):
         self.rect.topleft = (int(self.x), int(self.y))
 
     def path(self, world, node):
-	if node in self.path:
+	if node in self._path:
             self._path = world.get_new_path(self.rect.topleft)
 
     def draw(self, screen):

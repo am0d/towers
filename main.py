@@ -59,8 +59,8 @@ while not finished:
     world.draw(screen)
 
     mouse_pos = pygame.mouse.get_pos()
-    mouse_tower.set_pos(math.floor(mouse_pos[0] / map_res) * map_res,
-                        math.floor(mouse_pos[1] / map_res) * map_res)
+    mouse_tower.set_pos(math.floor(mouse_pos[0] / map_res) * map_res + 1,
+                        math.floor(mouse_pos[1] / map_res) * map_res + 1)
     mouse_tower.draw(screen)
 
     #pygame.display.update(draw_list)

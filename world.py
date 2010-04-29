@@ -24,13 +24,13 @@ class World:
 
     def __init_map(self, screen):
         max_x, max_y = screen.get_size()
-        
+
         screen.lock()
         for x in range(0, max_x):
             pygame.draw.line(screen, util.brown, (x*self.res, 0), (x*self.res, max_y-1))
-        for y in range(0, max_y):
-            pygame.draw.line(screen, util.brown, (0, y*self.res), (max_x-1, y*self.res))
-        screen.unlock()
+            for y in range(0, max_y):
+                pygame.draw.line(screen, util.brown, (0, y*self.res), (max_x-1, y*self.res))
+                screen.unlock()
 
     def add_tower(self, x, y, tower):
         try:
@@ -38,20 +38,20 @@ class World:
             col = int(math.floor(x / self.res))
 
             self._grid[row][col] = tower
-            pos_x = x - (x % self.res)
-            pos_y = y - (y % self.res)
+            pos_x = x - (x % self.res) + 1
+            pos_y = y - (y % self.res) + 1
             tower.set_pos(pos_x, pos_y)
 
             self._towers.add(tower)
 
             self._creeps.update('path', 
-			    (self, (pos_x, pos_y)))
+                                [self, (pos_x, pos_y)])
         except IndexError:
             print row, col
 
     def add_creep(self, creep):
         self._creeps.add(creep)
-#creep.update('path', (self, (0, 0)))
+        creep.update('path', [self, (0, 0)])
 
     def draw(self, screen):
         screen.blit(self.__grid_background, (0, 0))
@@ -60,14 +60,14 @@ class World:
 
     def draw_map(self, screen, pos):
         return screen.blit(self.__grid_background, pos.topleft, pos)
-                    
+
     def update(self, time):
         import creep
         self._towers.update(time)
-        self._creeps.update('time', (time))
+        self._creeps.update('time', [time])
 
     def get_goal(self):
-	return (self.width, self.height)
+        return (self.width, self.height)
 
     def get_new_path(self, src):
         return []
