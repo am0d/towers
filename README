@@ -1,0 +1,5 @@
+Towers is a very simple game written in python, using pygame.
+
+It is intended as a learning platform for me, to see if I can actually implement a full game.
+
+I also intend to practise my AI programming skills by implementing path-finding for the creeps.
