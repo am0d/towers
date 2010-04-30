@@ -8,8 +8,10 @@ class World:
     def __init__(self, width, height, res, screen):
         self.width = int(math.floor(width / res)*res)
         self.height = int(math.floor(height / res)*res)
+        self.grid_width = int(math.floor(width / res))
+        self.grid_height = int(math.floor(height / res))
         self.res = res
-        self._grid = [[None] * width for i in range(0, height)]
+        self._grid = [[None] * self.grid_width for i in range(0, self.grid_height)]
 
         # the visible map
         self.__grid_background = pygame.Surface((self.width+1, self.height+1))
