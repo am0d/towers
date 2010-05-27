@@ -24,6 +24,9 @@ class World:
         # the creeps
         self._creeps = pygame.sprite.Group()
 
+        # the paths for the creeps
+        self._paths = {}
+
     def __init_map(self, screen):
         max_x, max_y = screen.get_size()
 
@@ -69,7 +72,7 @@ class World:
         self._creeps.update('time', [time])
 
     def get_goal(self):
-        return (self.width, self.height)
+        return (self.height+self.res, self.width+self.res)
 
     def get_new_path(self, src):
-        return []
+        return [self.get_goal()]

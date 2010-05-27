@@ -10,7 +10,7 @@ from world import World
 
 pygame.init()
 
-size = width, height = 800, 480
+size = width, height = 640, 480
 screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 
 map_res = 40

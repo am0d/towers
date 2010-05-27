@@ -27,12 +27,14 @@ class Creep(pygame.sprite.Sprite):
     def time(self, timediff):
         delta = timediff / 1000.0
         self.x += self.speed * delta * math.cos(self.direction)
-        self.y -= self.speed * delta * math.sin(self.direction)
+        self.y += self.speed * delta * math.sin(self.direction)
         self.rect.topleft = (int(self.x), int(self.y))
 
     def path(self, world, node):
 	if node in self._path:
             self._path = world.get_new_path(self.rect.topleft)
+        goal = self._path[0]
+        self.direction = math.atan2(goal[0] - self.rect.top, goal[1] - self.rect.left)
 
     def draw(self, screen):
         return screen.blit(self.image, self.rect)
